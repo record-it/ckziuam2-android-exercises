@@ -23,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
         });
         runEmailActivityBtn.setOnClickListener(e -> {
             Intent intent = new Intent(getBaseContext(), EmailActivity.class);
-            intent.putExtra()
+            intent.putExtra("text","Hello from Start Activity");
             startActivity(intent);
         });
     }
