@@ -3,6 +3,7 @@ package pl.zsl.androidapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.button);
         text = findViewById(R.id.textView);
         number = findViewById(R.id.number);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("message");
+        text.setText(message);
         btn.setOnClickListener(e -> {
             text.setText("Kliknąłeś przycisk!");
         });
