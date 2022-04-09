@@ -38,6 +38,7 @@ public class CalculatorActivity extends AppCompatActivity {
     char lastOperator = '+';
     Acumulator accu = new Acumulator();
     Register register = new Register();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class CalculatorActivity extends AppCompatActivity {
             display.setText(register.getStrValue());
             playSound(pickSound);
         };
-        for (Button btn: digitsBtn) {
+        for (Button btn : digitsBtn) {
             btn.setOnClickListener(digitListener);
         }
         backspaceBtn.setOnClickListener(e -> {
@@ -78,41 +79,33 @@ public class CalculatorActivity extends AppCompatActivity {
             playSound(errorSound);
         });
 
+        clearBtn.setOnClickListener(e -> {
+            accu.clear();
+            register.clear();
+            display.setText(register.getStrValue());
+        });
+
         plusBtn.setOnClickListener(e -> {
-            if (accu.isEmpty()){
-                accu.setValue(register.getValue());
-                lastOperator = '+';
-                register.clear();
-            } else {
-                double result = calcBinaryOperation(lastOperator, accu.getValue(), register.getValue());
-                lastOperator = '+';
-                accu.setValue(result);
-                register.clear();
-            }
-            display.setText(accu.getValue() +"");
+            calcBinaryOperation();
+            lastOperator = '+';
+            display.setText(accu.getValue() + "");
         });
+
         mulBtn.setOnClickListener(e -> {
-            if (accu.isEmpty()){
-                accu.setValue(register.getValue());
-                lastOperator = '*';
-                register.clear();
-            } else {
-                double result = calcBinaryOperation(lastOperator, accu.getValue(), register.getValue());
-                lastOperator = '*';
-                accu.setValue(result);
-                register.clear();
-            }
-            display.setText(accu.getValue() +"");
+            calcBinaryOperation();
+            lastOperator = '*';
+            display.setText(accu.getValue() + "");
         });
-        calcBtn.setOnClickListener(e ->{
-            double result = calcBinaryOperation(lastOperator, accu.getValue(), register.getValue());
-            lastOperator = ' ';
-            accu.setValue(result);
-            display.setText(accu.getValue() +"");
+
+        calcBtn.setOnClickListener(e -> {
+            calcBinaryOperation();
+            Log.i("CALC", "lastOperator " + lastOperator);
+            lastOperator = '=';
+            display.setText(accu.getValue() + "");
             register.setStrValue(display.getText().toString());
         });
 
-        dotBtn.setOnClickListener(e ->{
+        dotBtn.setOnClickListener(e -> {
             register.add('.');
             display.setText(register.getStrValue());
         });
@@ -124,23 +117,32 @@ public class CalculatorActivity extends AppCompatActivity {
         }
     }
 
-    double calcBinaryOperation(char operator, double v1, double v2){
-        switch (operator){
-            case '+':
-                return v1 + v2;
-            case '*':
-                return v1 * v2;
-            case '-':
-                return v1 - v2;
-            case '/':
-                return v1 / v2;
-            default:
-                return 0;
+    void calcBinaryOperation() {
+        if (accu.isEmpty()) {
+            accu.setValue(register.getValue());
+        } else {
+            switch (lastOperator) {
+                case '+':
+                    accu.setValue(accu.getValue() + register.getValue());
+                    break;
+                case '*':
+                    accu.setValue(accu.getValue() * register.getValue());
+                    break;
+                case '-':
+                    accu.setValue(accu.getValue() - register.getValue());
+                    break;
+                case '/':
+                    accu.setValue(accu.getValue() / register.getValue());
+                    break;
+                case '=':
+                    break;
+            }
         }
+        register.clear();
     }
 
-    void prepareSounds(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+    void prepareSounds() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_MEDIA)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -152,7 +154,7 @@ public class CalculatorActivity extends AppCompatActivity {
         } else {
             soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         }
-        try{
+        try {
             AssetManager assetManager = getAssets();
             AssetFileDescriptor descriptor;
 
