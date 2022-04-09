@@ -39,4 +39,8 @@ public class Register {
         strValue = "0";
     }
 
+    public void setStrValue(String str){
+        strValue = str;
+    }
+
 }
