@@ -65,4 +65,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_grid_layout" />
+
+    <Button
+        android:id="@+id/start_form_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Formularz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_calculator_activity" />
 </androidx.constraintlayout.widget.ConstraintLayout>
