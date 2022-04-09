@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class CalculatorActivity extends AppCompatActivity {
     Button dotBtn;
     Button calcBtn;
     TextView display;
+    Switch soundSwitch;
     char lastOperator = '+';
     Acumulator accu = new Acumulator();
     Register register = new Register();
@@ -41,6 +43,7 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
         prepareSounds();
+        soundSwitch = findViewById(R.id.calcSoundOff);
         digitsBtn[0] = findViewById(R.id.calcBtn0);
         digitsBtn[1] = findViewById(R.id.calcBtn1);
         digitsBtn[2] = findViewById(R.id.calcBtn2);
@@ -64,7 +67,7 @@ public class CalculatorActivity extends AppCompatActivity {
             char digit = clicked.getText().charAt(0);
             register.add(digit);
             display.setText(register.getStrValue());
-            soundPool.play(pickSound, 1, 1, 0, 0, 1);
+            playSound(pickSound);
         };
         for (Button btn: digitsBtn) {
             btn.setOnClickListener(digitListener);
@@ -72,7 +75,7 @@ public class CalculatorActivity extends AppCompatActivity {
         backspaceBtn.setOnClickListener(e -> {
             register.backspace();
             display.setText(register.getStrValue());
-            soundPool.play(errorSound, 1, 1, 0, 0, 1);
+            playSound(errorSound);
         });
 
         plusBtn.setOnClickListener(e -> {
@@ -113,6 +116,12 @@ public class CalculatorActivity extends AppCompatActivity {
             register.add('.');
             display.setText(register.getStrValue());
         });
+    }
+
+    private void playSound(int pickSound) {
+        if (soundSwitch.isChecked()) {
+            soundPool.play(pickSound, 1, 1, 0, 0, 1);
+        }
     }
 
     double calcBinaryOperation(char operator, double v1, double v2){

@@ -37,4 +37,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <RadioGroup
+        android:id="@+id/mainColorGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/mainColor1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zielony" />
+
+        <RadioButton
+            android:id="@+id/mainColor2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Niebieski" />
+
+        <RadioButton
+            android:id="@+id/mainColor3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pomarańczowy" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/mainSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:entries="@array/cities"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainColorGroup" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
