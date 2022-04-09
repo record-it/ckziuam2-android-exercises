@@ -23,6 +23,7 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
         digitsBtn[0] = findViewById(R.id.calcBtn0);
         digitsBtn[1] = findViewById(R.id.calcBtn1);
         digitsBtn[2] = findViewById(R.id.calcBtn2);
@@ -47,8 +48,9 @@ public class CalculatorActivity extends AppCompatActivity {
         for (Button btn: digitsBtn) {
             btn.setOnClickListener(digitListener);
         }
-
+        backspaceBtn.setOnClickListener(e -> {
+            register.backspace();
+            display.setText(register.getStrValue());
+        });
     }
-
-
 }

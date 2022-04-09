@@ -19,6 +19,9 @@ public class Register {
     public boolean backspace(){
         if (strValue.length() > 0){
             strValue = strValue.substring(0, strValue.length() - 1);
+            if (strValue.length() == 0){
+                strValue = "0";
+            }
             return true;
         }
         return false;
