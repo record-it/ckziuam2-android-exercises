@@ -10,12 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StartActivity extends AppCompatActivity {
     Button runMainActivityBtn;
     Button runEmailActivityBtn;
+    Button runLinearLayoutActivityBtn;
+    Button runGridLayoutActivityBtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         runMainActivityBtn = findViewById(R.id.start_main_btn);
         runEmailActivityBtn = findViewById(R.id.start_email_btn);
+        runLinearLayoutActivityBtn = findViewById(R.id.start_linear_layout);
+        runGridLayoutActivityBtn = findViewById(R.id.start_grid_layout);
         runMainActivityBtn.setOnClickListener(e -> {
             Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
             mainActivityIntent.putExtra("message", "Hello from Start Activity");
@@ -24,6 +28,16 @@ public class StartActivity extends AppCompatActivity {
         runEmailActivityBtn.setOnClickListener(e -> {
             Intent intent = new Intent(getBaseContext(), EmailActivity.class);
             intent.putExtra("text","Hello from Start Activity");
+            startActivity(intent);
+        });
+
+        runLinearLayoutActivityBtn.setOnClickListener(e -> {
+            Intent intent = new Intent(getBaseContext(), LinearLayoutActivity.class);
+            startActivity(intent);
+        });
+
+        runGridLayoutActivityBtn.setOnClickListener(e ->{
+            Intent intent = new Intent(getBaseContext(), GridLayoutActivity.class);
             startActivity(intent);
         });
     }
