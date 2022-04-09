@@ -12,6 +12,7 @@ public class StartActivity extends AppCompatActivity {
     Button runEmailActivityBtn;
     Button runLinearLayoutActivityBtn;
     Button runGridLayoutActivityBtn;
+    Button runCalculatorActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,7 @@ public class StartActivity extends AppCompatActivity {
         runEmailActivityBtn = findViewById(R.id.start_email_btn);
         runLinearLayoutActivityBtn = findViewById(R.id.start_linear_layout);
         runGridLayoutActivityBtn = findViewById(R.id.start_grid_layout);
+        runCalculatorActivity = findViewById(R.id.start_calculator_activity);
         runMainActivityBtn.setOnClickListener(e -> {
             Intent mainActivityIntent = new Intent(getBaseContext(), MainActivity.class);
             mainActivityIntent.putExtra("message", "Hello from Start Activity");
@@ -35,9 +37,12 @@ public class StartActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), LinearLayoutActivity.class);
             startActivity(intent);
         });
-
         runGridLayoutActivityBtn.setOnClickListener(e ->{
             Intent intent = new Intent(getBaseContext(), GridLayoutActivity.class);
+            startActivity(intent);
+        });
+        runCalculatorActivity.setOnClickListener(e ->{
+            Intent intent = new Intent(getBaseContext(), CalculatorActivity.class);
             startActivity(intent);
         });
     }
