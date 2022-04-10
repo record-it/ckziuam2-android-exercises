@@ -3,6 +3,7 @@ package pl.zsl.androidapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -47,19 +48,8 @@ public class FormActivity extends AppCompatActivity {
             Person person = readFromForm();
             if (person != null) {
                 helper.addPerson(database, person);
-
-                Cursor cursor = helper.findAll(database);
-                if (cursor != null && cursor.moveToFirst()){
-                    do{
-                        String name = cursor.getString(1);
-                        Log.i("DATABASE", "name: " + name);
-                    } while(cursor.moveToNext());
-                }
-
-                mNameField.setText("");
-                mAddress.setText("");
-                Toast.makeText(getBaseContext(), "Osoba została zapisana", Toast.LENGTH_LONG)
-                        .show();
+                Intent intent = new Intent(getBaseContext(), PeopleActivity.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(getBaseContext(), "Niepoprawna data urodzin", Toast.LENGTH_LONG)
                         .show();

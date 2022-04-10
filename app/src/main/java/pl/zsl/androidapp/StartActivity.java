@@ -14,6 +14,7 @@ public class StartActivity extends AppCompatActivity {
     Button runGridLayoutActivityBtn;
     Button runCalculatorActivity;
     Button runFormActivityBtn;
+    Button runPeopleListActivityBtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,14 @@ public class StartActivity extends AppCompatActivity {
         runGridLayoutActivityBtn = findViewById(R.id.start_grid_layout);
         runCalculatorActivity = findViewById(R.id.start_calculator_activity);
         runFormActivityBtn = findViewById(R.id.start_form_activity);
+
+        runPeopleListActivityBtn = findViewById(R.id.startPeopleList);
+        runPeopleListActivityBtn.setOnClickListener(e -> {
+            Intent intent = new Intent(getBaseContext(), PeopleActivity.class);
+            startActivity(intent);
+        });
+
+
         runFormActivityBtn.setOnClickListener(e ->{
             Intent intent = new Intent(getBaseContext(), FormActivity.class);
             startActivity(intent);

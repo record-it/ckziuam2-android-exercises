@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
         <activity
+            android:name=".PeopleActivity"
+            android:exported="false" />
+        <activity
             android:name=".FormActivity"
             android:exported="false" />
         <activity

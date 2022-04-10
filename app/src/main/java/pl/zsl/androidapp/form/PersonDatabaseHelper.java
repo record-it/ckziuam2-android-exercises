@@ -77,5 +77,17 @@ public class PersonDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updatePerson(SQLiteDatabase db, int id, Person person){
+        ContentValues record = new ContentValues();
+        record.put(COL_NAME, person.getName());
+        record.put(COL_EMAIL, person.getEmail());
+        record.put(COL_PHONE, person.getPhone());
+        record.put(COL_ADDRESS, person.getAddress());
+        record.put(COL_BIRTH, person.getBirth().toEpochDay());
+        db.update(TAB_PEOPLE, record, "_id = ?", new String[] {id +""});
+    }
 
+    public void deletePerson(SQLiteDatabase db, int id){
+        db.delete(TAB_PEOPLE, "_id = ?", new String[] {id +""});
+    }
 }
