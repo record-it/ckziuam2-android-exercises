@@ -3,6 +3,8 @@ package pl.zsl.androidapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.zsl.androidapp.form.Person;
+import pl.zsl.androidapp.form.PersonDatabaseHelper;
 
 public class FormActivity extends AppCompatActivity {
     EditText mNameField;
@@ -24,12 +27,16 @@ public class FormActivity extends AppCompatActivity {
     EditText mPhoneField;
     EditText mAddress;
     ImageButton mSaveBtn;
-    List<Person> people = new ArrayList<>();
-
+    PersonDatabaseHelper helper;
+    SQLiteDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        helper = new PersonDatabaseHelper(getBaseContext());
+        database = helper.getReadableDatabase();
+
         mNameField = findViewById(R.id.form_name);
         mEmailField = findViewById(R.id.form_email);
         mBirthField = findViewById(R.id.form_birth);
@@ -39,10 +46,16 @@ public class FormActivity extends AppCompatActivity {
         mSaveBtn.setOnClickListener(e ->{
             Person person = readFromForm();
             if (person != null) {
-                people.add(person);
-                for (Person p : people) {
-                    Log.i("PEOPLE", p.getName() + " " + p.getPhone());
+                helper.addPerson(database, person);
+
+                Cursor cursor = helper.findAll(database);
+                if (cursor != null && cursor.moveToFirst()){
+                    do{
+                        String name = cursor.getString(1);
+                        Log.i("DATABASE", "name: " + name);
+                    } while(cursor.moveToNext());
                 }
+
                 mNameField.setText("");
                 mAddress.setText("");
                 Toast.makeText(getBaseContext(), "Osoba została zapisana", Toast.LENGTH_LONG)
