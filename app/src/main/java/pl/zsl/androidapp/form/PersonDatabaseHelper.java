@@ -2,10 +2,13 @@ package pl.zsl.androidapp.form;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.time.LocalDate;
 
 public class PersonDatabaseHelper extends SQLiteOpenHelper {
     private static final String NAME = "people";
@@ -31,6 +34,28 @@ public class PersonDatabaseHelper extends SQLiteOpenHelper {
                 COL_ADDRESS + " TEXT, " +
                 COL_BIRTH + " NUMERIC " +
                 ")");
+        addPerson(db, new Person(
+                "Karol Nowak",
+                "ul. Winiarska 2 Kraków",
+                "karol@op.pl",
+                LocalDate.of(2000, 10, 10),
+                "45677843"
+                ));
+        addPerson(db, new Person(
+                "Ewa Kowal",
+                "ul. Wiązowa 3/6 Gdynia",
+                "ewa@op.pl",
+                LocalDate.of(2001, 11, 10),
+                "45677843"
+        ));
+        addPerson(db, new Person(
+                "Robert Misiak",
+                "ul. Główna 3/6 Kraków",
+                "rob@sda.pl",
+                LocalDate.of(2003, 6, 23),
+                "44656677"
+        ));
+
     }
 
     public void addPerson(SQLiteDatabase db, Person person) {
@@ -43,8 +68,14 @@ public class PersonDatabaseHelper extends SQLiteOpenHelper {
         db.insert(TAB_PEOPLE, null, record);
     }
 
+    public Cursor findAll(SQLiteDatabase db){
+        return db.query(TAB_PEOPLE, null, null, null, null, null, COL_NAME, null);
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 }
