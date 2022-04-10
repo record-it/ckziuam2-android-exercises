@@ -99,7 +99,6 @@ public class CalculatorActivity extends AppCompatActivity {
 
         calcBtn.setOnClickListener(e -> {
             calcBinaryOperation();
-            Log.i("CALC", "lastOperator " + lastOperator);
             lastOperator = '=';
             display.setText(accu.getValue() + "");
             register.setStrValue(display.getText().toString());
